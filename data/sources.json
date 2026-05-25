@@ -1,0 +1,56 @@
+{
+  "rss_feeds": [
+    {
+      "name": "Nature Education",
+      "url": "https://www.nature.com/natedu/current_issue",
+      "category": "Research"
+    },
+    {
+      "name": "EdSurge News",
+      "url": "https://www.edsurge.com/feed",
+      "category": "EdTech"
+    },
+    {
+      "name": "The Chronicle of Higher Education",
+      "url": "https://www.chronicle.com/feed.xml",
+      "category": "Higher Education"
+    },
+    {
+      "name": "Medium - Education",
+      "url": "https://medium.com/tag/education/feed",
+      "category": "Practical"
+    },
+    {
+      "name": "eLearning Industry",
+      "url": "https://elearningindustry.com/feed",
+      "category": "EdTech"
+    },
+    {
+      "name": "Teachable Blog",
+      "url": "https://blog.teachable.com/feed",
+      "category": "Online Learning"
+    }
+  ],
+  "news_api_queries": [
+    {
+      "q": "education",
+      "sortBy": "publishedAt"
+    },
+    {
+      "q": "online learning",
+      "sortBy": "publishedAt"
+    },
+    {
+      "q": "educational technology",
+      "sortBy": "publishedAt"
+    },
+    {
+      "q": "teaching methods",
+      "sortBy": "publishedAt"
+    },
+    {
+      "q": "digital learning",
+      "sortBy": "publishedAt"
+    }
+  ]
+}
