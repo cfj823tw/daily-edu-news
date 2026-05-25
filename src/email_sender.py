@@ -6,11 +6,13 @@ from datetime import datetime
 
 class EmailSender:
     def __init__(self):
-        self.smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
+        # 使用 .strip() 確保變數前後沒有隱藏的空格或換行符號
+        self.smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com').strip()
         self.smtp_port = int(os.getenv('SMTP_PORT', 587))
-        self.sender_email = os.getenv('SENDER_EMAIL')
-        self.sender_password = os.getenv('EMAIL_PASSWORD')
-        self.recipient_email = os.getenv('EMAIL_RECIPIENT')
+        # 🟢 修正 1：將 SENDER_EMAIL 改為與 YAML 一致的 EMAIL_ADDRESS
+        self.sender_email = os.getenv('EMAIL_ADDRESS', '').strip()
+        self.sender_password = os.getenv('EMAIL_PASSWORD', '').strip()
+        self.recipient_email = os.getenv('EMAIL_RECIPIENT', '').strip()
     
     def send_news_digest(self, news_list):
         """
@@ -31,9 +33,17 @@ class EmailSender:
             message.attach(text_part)
             message.attach(html_part)
             
+            print(f"📡 正在連線至郵件伺服器 {self.smtp_server}:{self.smtp_port}...")
             with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
-                server.starttls()
+                # 🟢 修正 2：加入完整的 Gmail TLS 安全加密連線握手步驟
+                server.ehlo()          # 第一次握手
+                server.starttls()      # 啟動加密
+                server.ehlo()          # 🟢 加密後的第二次握手（Gmail 規定，缺少會噴 334 錯誤）
+                
+                print(f"🔑 正在嘗試登入帳號: {self.sender_email}...")
                 server.login(self.sender_email, self.sender_password)
+                print("🔓 郵件伺服器登入成功！正在發送郵件...")
+                
                 server.send_message(message)
             
             print(f"✅ 郵件已成功發送至 {self.recipient_email}")
@@ -55,7 +65,7 @@ class EmailSender:
                 'higher_ed': '🎓',
                 'policy': '📋',
                 'practice': '🛠️'
-            }.get(news.get('category', 'practice'), '📌')
+            }.get(news.get('category', '').lower(), '📌') # 轉小寫比對更安全
             
             news_html += f"""
             <tr>
