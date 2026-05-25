@@ -1,5 +1,5 @@
 {
-  "rss_feeds": [
+  "rss_sources": [
     {
       "name": "Nature Education",
       "url": "https://www.nature.com/natedu/current_issue",
@@ -31,26 +31,11 @@
       "category": "Online Learning"
     }
   ],
-  "news_api_queries": [
-    {
-      "q": "education",
-      "sortBy": "publishedAt"
-    },
-    {
-      "q": "online learning",
-      "sortBy": "publishedAt"
-    },
-    {
-      "q": "educational technology",
-      "sortBy": "publishedAt"
-    },
-    {
-      "q": "teaching methods",
-      "sortBy": "publishedAt"
-    },
-    {
-      "q": "digital learning",
-      "sortBy": "publishedAt"
-    }
+  "keywords": [
+    "education",
+    "online learning",
+    "educational technology",
+    "teaching methods",
+    "digital learning"
   ]
 }
